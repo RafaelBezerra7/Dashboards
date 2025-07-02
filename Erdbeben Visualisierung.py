@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -36,13 +35,49 @@ realtime_url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_mo
 df = fetch_earthquake_data(realtime_url)
 
 
+st.title("Erdbeben Visualisierung")
+
+count_of_earthquakes = df.shape[0]
+st.text(f"In den letzten 30 Tagen gabe es insgesamt {count_of_earthquakes} Erdbeben.")
+
+col1, col2 = st.columns(2)
+
+earliest_date = df.time_utc.min().date()
+
+from_date = col1.date_input(label="Von", value=earliest_date, min_value=earliest_date, max_value='today')
+end_date = col2.date_input(label="Bis", value='today', min_value=earliest_date, max_value='today')
+
+if end_date < from_date:
+    st.error("Startdatum darf nicht vor Enddatum liegen.")
+
+df_zeitraum = df[(df.time_utc.dt.date >= from_date) & (df.time_utc.dt.date <= end_date)]
 
 
+st.metric("Erdbeben im Zeitraum", df_zeitraum.shape[0])
 
+anzahl_df = df_zeitraum.groupby(df_zeitraum.time_utc.dt.date).size()
 
+fig_bar = px.bar(anzahl_df, title="Einträge pro Tag",)
+fig_bar.update(layout_showlegend=False)
 
+st.plotly_chart(fig_bar, theme="streamlit")
 
+fig_earth = px.scatter_map(
+    df_zeitraum.query("magnitude > 0"),
+    lat="latitude",
+    lon="longitude",
+    color="magnitude",
+    hover_name="place",
+    hover_data={"time_utc": True, "time_local": True, "magnitude": True},
+    zoom=1,
+    height=600,
+    title="Geomap"
+)
 
+st.plotly_chart(fig_earth)
 
+with st.expander("Daten im Zeitraum anzeigen"):
+    st.dataframe(df_zeitraum)
 
-
+st.subheader("Tektonische Platten")
+st.image("https://getech.com/wp-content/uploads/2020/09/tectonic-plates-map-world.png")
