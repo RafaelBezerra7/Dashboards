@@ -102,3 +102,16 @@ with st.sidebar:
 
     st.header("🔗 Links")
     st.markdown("* [IMDb-Seite](https://www.imdb.com/title/tt0096579)\n* [Wikipedia-Artikel (de)](https://de.wikipedia.org/wiki/Alle_unter_einem_Dach)")
+
+
+st.radio("Wähle eine Farbe:", ["rot", "blau", Lila)])
+
+
+
+
+
+
+
+
+
+
