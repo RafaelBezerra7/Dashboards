@@ -2,7 +2,7 @@
 
 import streamlit as st
 
-st.title("Rafael Mini-Quiz: Wie gut kennst du dich aus?")
+st.title("Rafael Lima Mini-Quiz: Wie gut kennst du dich aus?")
 
 score = 0
 feedback = []
