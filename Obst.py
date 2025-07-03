@@ -16,7 +16,7 @@ df = pd.DataFrame({
 
 col1, col2 = st.columns([2, 1])
 
-# --- Interaktives Diagramm ---------------------------------------
+# --- Diagramm -----------------------------------------------------
 fig = px.bar(
     df,
     x="Obst",
@@ -24,20 +24,15 @@ fig = px.bar(
     hover_data=["Farbe", "Vitamin C (mg)", "Herkunft"],
     title="Stimmen für Lieblingsobst"
 )
+col1.plotly_chart(fig)
 
-selected = col1.plotly_chart(fig, on_select="rerun")
+# --- Interaktive Auswahl ------------------------------------------
+selected_obst = col2.selectbox("Wähle eine Obstsorte", df["Obst"])
 
-# --- Auswahl auswerten -------------------------------------------
-indices = selected["selection"]["point_indices"]
-
-with col2:
-    if not indices:
-        st.info("👉 Klicke auf eine Obstsorte im Diagramm, um mehr zu erfahren.")
-    else:
-        obst = df.iloc[indices[0]]
-        st.subheader(f"Details zu {obst.Icon} {obst.Obst}")
-        st.markdown(f"""
-        - **Farbe**: {obst.Farbe}  
-        - **Vitamin C**: {obst['Vitamin C (mg)']} mg  
-        - **Typische Herkunft**: {obst.Herkunft}
-        """)
+obst = df[df["Obst"] == selected_obst].iloc[0]
+col2.subheader(f"Details zu {obst.Icon} {obst.Obst}")
+col2.markdown(f"""
+- **Farbe**: {obst.Farbe}  
+- **Vitamin C**: {obst['Vitamin C (mg)']} mg  
+- **Typische Herkunft**: {obst.Herkunft}
+""")
