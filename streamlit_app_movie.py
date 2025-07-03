@@ -1,46 +1,44 @@
 import streamlit as st
 
 # ------------------------------------------------------------
-# Streamlit Demo App - IMDb Info (Family Matters)
+# Streamlit Demo App - IMDb Info (Matrix Trilogy)
 # ------------------------------------------------------------
-#   Ziel : Beispiele fur Layout-Elemente wie Tabs, Container,
+#   Ziel : Beispiele für Layout-Elemente wie Tabs, Container,
 #          Columns, Metric, Image, Video u.v.m. zeigen.
-#          Daten sind hier statisch hinterlegt, damit man sich
-#          auf das Platzieren konzentrieren kann.
+#          Daten sind hier statisch hinterlegt.
 # ------------------------------------------------------------
 
 # ------------------------------------------------------------
 # Helpers / Static Data
 # ------------------------------------------------------------
-TITLE_DE = "Alle unter einem Dach"
-TITLE_EN = "Family Matters"
-POSTER_URL = "https://image.tmdb.org/t/p/original/lIIPV3te2mxBQBHw2rfhwkUYsHf.jpg"
-YOUTUBE_INTRO = "https://www.youtube.com/watch?v=5bEUmKy1HQg"
+TITLE_DE = "Matrix-Trilogie"
+TITLE_EN = "The Matrix Trilogy"
+POSTER_URL = "https://image.tmdb.org/t/p/original/f89U3ADr1oiB1s9GkdPOEpXUk5H.jpg"
+YOUTUBE_INTRO = "https://www.youtube.com/watch?v=vKQi3bBA1y8"
 
 INFO = {
-    "Jahre": "1989 - 1998",
-    "Staffeln": 9,
-    "Episoden": 215,
-    "Laufzeit": "ca. 30 Min./Episode",
-    "IMDb Rating": "6.6 / 10",
-    "Stimmen": "ca. 31.000",
+    "Jahre": "1999 - 2003",
+    "Staffeln": None,
+    "Episoden": None,
+    "Laufzeit": "136 Min.",
+    "IMDb Rating": "8.7 / 10",
+    "Stimmen": "1.9 Mio.",
 }
 
 CAST_MAIN = [
-    "Reginald VelJohnson - Carl Winslow",
-    "Jaleel White - Steve Urkel / Stefan Urquelle",
-    "Kellie Shanygne Williams - Laura Winslow",
-    "Darius McCrary - Eddie Winslow",
-    "Jo Marie Payton - Harriette Winslow",
-    "Rosetta LeNoire - Mother Winslow",
+    "Keanu Reeves – Neo",
+    "Laurence Fishburne – Morpheus",
+    "Carrie-Anne Moss – Trinity",
+    "Hugo Weaving – Agent Smith",
+    "Jada Pinkett Smith – Niobe",
 ]
 
 SUMMARY = (
-    "**Family Matters** ist eine US-amerikanische Sitcom rund um die afroamerikanische "
-    "Mittelklasse-Familie Winslow in Chicago. Die Serie kombiniert herzlichen Familienhumor "
-    "mit gesellschaftlichen Themen wie Rassismus, Waffengewalt oder Gleichberechtigung. "
-    "Zum Kultstatus trug vor allem die Figur **Steve Urkel** bei, deren Erfindungen die "
-    "Handlung immer wieder in Science-Fiction-Gefilde abgleiten lassen."
+    "Die **Matrix-Trilogie** besteht aus drei bahnbrechenden Science-Fiction-Filmen: "
+    "**The Matrix** (1999), **The Matrix Reloaded** (2003) und **The Matrix Revolutions** (2003). "
+    "Sie erzählen die Geschichte von Neo, einem Hacker, der entdeckt, dass seine Realität eine "
+    "künstlich geschaffene Simulation ist. Die Filme kombinieren philosophische Fragen mit "
+    "stilbildender Action, Bullet-Time-Effekten und Cyberpunk-Ästhetik."
 )
 
 # ------------------------------------------------------------
@@ -57,32 +55,31 @@ with st.container():
         st.caption(INFO["Jahre"] + " | " + INFO["Laufzeit"])
 
         m1, m2, m3 = st.columns(3)
-        m1.metric("IMDb Rating", INFO["IMDb Rating"], None)
-        m2.metric("Staffeln", INFO["Staffeln"])
-        m3.metric("Episoden", INFO["Episoden"])
+        m1.metric("IMDb Rating", INFO["IMDb Rating"])
+        m2.metric("Laufzeit", INFO["Laufzeit"])
+        m3.metric("Stimmen", INFO["Stimmen"])
 
         st.write(SUMMARY)
 
 # ------------------------------------------------------------
 # Tabs Section
 # ------------------------------------------------------------
-
 overview_tab, cast_tab, media_tab = st.tabs(["Überblick", "Hauptcast", "Media"])
 
 with overview_tab:
     st.subheader("Kurzer Inhalt")
     st.write(
-        "Die Winslows sind eine liebenswerte Familie, deren Alltag immer wieder "
-        "durch die schrulligen Erfindungen ihres Nachbarn Steve Urkel auf den Kopf "
-        "gestellt wird. Trotz verrückter Situationen steht am Ende jeder Episode "
-        "der familiäre Zusammenhalt im Mittelpunkt."
+        "Neo lebt in einer simulierten Realität, der Matrix. Nachdem er durch Morpheus "
+        "erwacht wird, beginnt sein Kampf gegen die Maschinen, die die Menschheit versklavt halten. "
+        "Mit Hilfe von Trinity, dem Orakel und anderen Rebellen kämpft er gegen das System, "
+        "um das Schicksal der Menschheit zu verändern."
     )
 
     with st.expander("Auszeichnungen (Auszug)"):
         st.markdown("""
-        * Emmy-Nominierung für **Beste visuelle Effekte** (Folge *Der doppelte Steve*)  
-        * **BMI Film & TV Award** für Bennett Salvay (1991, 1992)  
-        * **NAACP Image Awards** für Jaleel White (1994, 1995, 1997)
+        * **4 Oscars** (Matrix 1999): Bester Schnitt, Tonschnitt, Ton & visuelle Effekte  
+        * **BAFTA Awards** für visuelle Effekte und Tonschnitt  
+        * Kultstatus durch revolutionäre Kamera- und Actiontechniken
         """)
 
 with cast_tab:
@@ -90,8 +87,16 @@ with cast_tab:
     st.write("\n".join([f"- {member}" for member in CAST_MAIN]))
 
 with media_tab:
-    st.subheader("Serien-Intro (Video)")
-    st.video(YOUTUBE_INTRO)
+    st.subheader("Trailer & Szenen")
+
+    st.markdown("**The Matrix (1999)**")
+    st.video("https://www.youtube.com/watch?v=vKQi3bBA1y8")
+
+    st.markdown("**The Matrix Reloaded (2003)**")
+    st.video("https://www.youtube.com/watch?v=kYzz0FSgpSU")
+
+    st.markdown("**The Matrix Revolutions (2003)**")
+    st.video("https://www.youtube.com/watch?v=hMbexEPAOQI")
 
 # ------------------------------------------------------------
 # Sidebar
@@ -101,17 +106,12 @@ with st.sidebar:
     st.metric("IMDb Rating", INFO["IMDb Rating"])
 
     st.header("🔗 Links")
-    st.markdown("* [IMDb-Seite](https://www.imdb.com/title/tt0096579)\n* [Wikipedia-Artikel (de)](https://de.wikipedia.org/wiki/Alle_unter_einem_Dach)")
+    st.markdown("""
+    * [IMDb – The Matrix (1999)](https://www.imdb.com/title/tt0133093)  
+    * [Wikipedia – Matrix (Filmreihe)](https://de.wikipedia.org/wiki/Matrix_(Filmreihe))  
+    """)
 
-
-st.radio("Wähle eine Farbe:", ["rot", "blau", Lila)])
-
-
-
-
-
-
-
-
-
+# ------------------------------------------------------------
+# Extra Option (Farbauswahl)
+# ------------------------------------------------------------
 
