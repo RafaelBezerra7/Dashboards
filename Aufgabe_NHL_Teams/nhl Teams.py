@@ -5,7 +5,7 @@ import pandas as pd
 
 # CSV-Datei einlesen
 # Carregar o arquivo CSV (deve estar na mesma pasta do script)
-df = pd.read_csv("nhl_teams.csv")
+df = pd.read_csv("Aufgabe_NHL_Teams/teams.csv")
 
 # Seitenleiste mit Filteroptionen
 # Barra lateral com opções de filtro
@@ -25,8 +25,8 @@ selected_teams = st.sidebar.multiselect(
 
 # Auswahl des Jahresbereichs
 # Seleção do intervalo de anos
-min_year = int(df["Year"].min())
-max_year = int(df["Year"].max())
+min_year = int(df["Jahr"].min())
+max_year = int(df["Jahr"].max())
 selected_years = st.sidebar.slider(
     "Wählen Sie den Jahresbereich:",  # Selecione o intervalo de anos:
     min_value=min_year,
@@ -38,8 +38,8 @@ selected_years = st.sidebar.slider(
 # Filtrar os dados conforme times e intervalo de anos selecionados
 filtered_df = df[
     (df["Team"].isin(selected_teams)) &
-    (df["Year"] >= selected_years[0]) &
-    (df["Year"] <= selected_years[1])
+    (df["Jahr"] >= selected_years[0]) &
+    (df["Jahr"] <= selected_years[1])
 ]
 
 # Gefilterte Daten anzeigen
